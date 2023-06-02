@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+<h3>Customer Details</h3>
+
+<form action="{% url 'bank_app:staff_customer_details' customer.pk %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+        {{ user_form.as_p }}
+        {{ customer_form.as_p }}
+    <button>Update User</button>
+    </fieldset>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Account Number</th>
+            <th>Account Name</th>
+            <th>Account Balance</th>
+        </tr>
+    </thead>
+    <tbody
+        id="account-list"
+        hx-swap="outerHTML"
+        hx-get="{% url 'bank_app:staff_account_list_partial' customer.pk %}"
+        hx-trigger="load">
+    </tbody>
+</table>
+
+<h3>Create New Account</h3>
+<form action="{% url 'bank_app:staff_new_account_partial' customer.user.pk %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+        {{ new_account_form.as_p }}
+    <button>Create Account</button>
+    </fieldset>
+</form>
+
+{% endblock main %}

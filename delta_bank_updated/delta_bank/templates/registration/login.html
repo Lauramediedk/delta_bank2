@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block main %}
+<form action="{% url 'mfa_app:login' %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+
+    <label>
+        User Name
+        <input name="username" type="text"/>
+    </label>
+    <label>
+        Password
+        <input name="password" type="password" />
+    </label>
+    <label>
+        <br>
+        If your account has two factor authication, provide code
+        <br>
+        <input name="code" type="text" placeholder="6-didgit code"/>
+    </label>
+    <button>Log In</button>
+    </fieldset>
+</form>
+{% endblock main %}

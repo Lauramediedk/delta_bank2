@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+
+<h2>Message Detail</h2>
+<p><strong>From:</strong> {{ message.sender }}</p>
+<p><strong>Date:</strong> {{ message.timestamp }}</p>
+
+<p>{{ message.content }}</p>
+
+
+
+
+{% endblock main %}

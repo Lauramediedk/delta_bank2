@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'simple.css' %}" media="screen" />
+    <title>Delta Bank</title>
+</head>
+<body>
+
+    {% load l10n %}
+
+    <header>
+        <h1>Delta Bank</h1>
+        {% if user.is_staff %}
+        <h2>Bank Staff Portal</h2>
+        {% else %}
+        <h2>Bank Customer Portal</h2>
+        {% endif %}
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="{% url 'bank_app:index' %}">Home</a></li>
+            
+            
+                
+            {% if user.is_superuser %}
+            <li><a href="{% url 'admin:index' %}">Admin</a></li>
+            {% endif %}
+            
+                
+            
+            {% if user.is_staff %}
+                <li><a href="{% url 'bank_app:staff_new_customer' %}">New Customer</a></li>
+                <li><a href="{% url 'bank_app:message' %}">Inbox</a></li>
+                <li><a href="{% url 'logout' %}">Log out</a></li>
+                <li><a href="{% url 'bank_app:settings' %}">Settings</a></li>
+            {% elif user.username %}
+                <li><a href="{% url 'bank_app:make_transfer' %}">Make Transfer</a></li>
+                <li><a href="{% url 'bank_app:make_loan' %}">Make Loan</a></li>
+                <li><a href="{% url 'bank_app:message' %}">Inbox</a></li>
+                <li><a href="{% url 'logout' %}">Log out</a></li>
+                <li><a href="{% url 'bank_app:settings' %}">Settings</a></li>
+            {% endif %}
+            
+        </ul>
+    </nav>
+
+    <main>
+    {% block main %}
+    {% endblock main %}
+    </main>
+
+    <footer>
+        <p>Group: Delta - kea exam</p>
+    </footer>
+    <script src="https://unpkg.com/htmx.org@1.5.0" integrity="sha384-oGA+prIp5Vchu6we2YkI51UtVzN9Jpx2Z7PnR1I78PnZlN8LkrCT4lqqqmDkyrvI" crossorigin="anonymous"></script>
+    <script>
+        document.body.addEventListener('htmx:configRequest', (event) => {
+            event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+        })
+    </script>
+</body>
+</html>
+
+
+
+
+

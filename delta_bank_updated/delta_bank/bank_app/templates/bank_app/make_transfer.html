@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block main %}
+<form id="transfer_form" onsubmit="make_transfer(); return false;">
+    {% csrf_token %}
+    <fieldset>
+        {{ form }}
+        <input type="submit" value="Overføre"/>
+    </fieldset>
+    
+</form>
+
+{% load static %}  
+<script src="{% static 'transfer.js' %}" type="text/javascript"></script>
+
+{% endblock main %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+<p>Welcome, {{ user }}.</p>
+
+<fieldset>
+    <label>Customer Look Up</label>
+    <input name="search_term"
+           placeholder="Search on customer data"
+           class="form-control"
+           type="text"
+           hx-post="{% url 'bank_app:staff_search_partial' %}"
+           hx-trigger="keyup changed delay:500ms"
+           hx-target="#search-results"
+           hx-indicator=".htmx-indicator"
+    />
+    {% csrf_token %}
+</fieldset>
+
+<table>
+    <thead>
+        <th>ID</th>
+        <th>Persal ID</th>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Email</th>
+    </thead>
+    <tbody id="search-results">
+    </tbody>
+</table>
+
+{% endblock main %}

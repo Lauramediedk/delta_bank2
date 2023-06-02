@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block main %}
+<form action="{% url 'bank_app:staff_new_customer' %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+        {{ new_user_form }}
+        {{ customer_form }}
+    <button>Create User</button>
+    </fieldset>
+</form>
+{% endblock main %}
